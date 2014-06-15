@@ -18,7 +18,7 @@ h4 a:hover {
 #map {
 	position: absolute;
 	top: 40px;
-	bottom: 40px;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	background: rgba(220,230,240,1);	
