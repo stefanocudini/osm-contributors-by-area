@@ -40,8 +40,8 @@ grunt.initConfig({
 		dist: {
 			src: [
 				'dist/L.Control.Sidebar.min.js',
-				'',
-				'',			
+				'leaflet-list-markers/dist/leaflet-list-markers.min.js',
+				'leaflet-layerJSON/dist/leaflet-layerjson.min.js',			
 				'social.js',
 				'dist/main.min.js'			
 			],
@@ -52,6 +52,7 @@ grunt.initConfig({
 		combine: {
 			src: [
 				'leaflet-sidebar/src/L.Control.Sidebar.css',
+				'leaflet-list-markers/dist/leaflet-list-markers.min.css',
 				'style.css'
 			],
 			dest: 'dist/style.min.css'

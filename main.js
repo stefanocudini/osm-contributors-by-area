@@ -1,6 +1,6 @@
 $(function() {
 
-var map = new L.Map('map',{attributionControl: false}).setView(L.latLng(36,-30),3);
+var map = new L.Map('map',{attributionControl: false}).setView(L.latLng(42.4461,12.4937),12);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
