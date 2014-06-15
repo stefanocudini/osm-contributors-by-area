@@ -1,0 +1,27 @@
+{
+  "name": "osm-contributors-by-area",
+  "version": "0.0.1",
+  "description": "List of contributors who have participated in a given OSM area.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stefanocudini/osm-contributors-by-area.git"
+  },
+  "homepage": "http://labs.easyblog.it/maps/osm-contributors-by-area/",
+  "author": {
+    "name": "Stefano Cudini",
+    "email": "stefano.cudini@gmail.com",
+    "url": "http://labs.easyblog.it/"
+  },
+  "license": "MIT",
+  "keywords": [
+	"osm",
+	"openstreetmap",
+	"contributors",
+	"users",
+	"area"
+  ],
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13"
+  }
+}

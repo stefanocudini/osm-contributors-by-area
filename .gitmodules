@@ -1,0 +1,9 @@
+[submodule "leaflet-list-markers"]
+	path = leaflet-list-markers
+	url = https://github.com/stefanocudini/leaflet-list-markers.git
+[submodule "leaflet-layerJSON"]
+	path = leaflet-layerJSON
+	url = https://github.com/stefanocudini/leaflet-layerJSON.git
+[submodule "leaflet-sidebar"]
+	path = leaflet-sidebar
+	url = https://github.com/Turbo87/leaflet-sidebar.git
