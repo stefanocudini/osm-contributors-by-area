@@ -23,21 +23,13 @@ map.setView(L.latLng(42.4461,12.4937), minZoom);
 
 
 L.layerJSON({
-	url: overpassUrl+'node({lat1},{lon1},{lat2},{lon2});out meta;;',
+	url: overpassUrl+'data=[out:json];node({lat1},{lon1},{lat2},{lon2});out meta;',
 	propertyItems: 'elements',
 	propertyTitle: 'tags.name',
 	propertyLoc: ['lat','lon'],
-	// buildIcon: function(data, title) {
-	// 	return new L.Icon({
-	// 		iconUrl:'bar.png',
-	// 		iconSize: new L.Point(32, 37),
-	// 		iconAnchor: new L.Point(18, 37),
-	// 		popupAnchor: new L.Point(0, -37)
-	// 	});
-	// },
-	// buildPopup: function(data, marker) {
-	// 	return data.tags.name || null;
-	// }
+	dataToMarker: function(data) {
+		return false;
+	}
 })
 .on('dataloading',function(e) {
 	console.log('dataloading',e);
