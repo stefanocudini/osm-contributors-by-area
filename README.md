@@ -17,13 +17,18 @@ Copyright 2014 [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
 
 Build
 
+*include libs:*
+```
+git submodule update --init --recursive
+```
+
+*update libs*
+```
+git submodule foreach git pull origin master
+```
+
 **compress files:**
 ```
 npm install
 grunt
-```
-
-**update libs:**
-```
-git submodule foreach git pull
 ```
