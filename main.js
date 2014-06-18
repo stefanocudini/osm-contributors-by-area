@@ -40,15 +40,21 @@ L.layerJSON({
 // 	//loader.style.display = 'block';
 // })
 .on('dataloaded',function(e) {
-	console.log('dataloaded', users);
+	//console.log('dataloaded', users);
 	//loader.style.display = 'none';
 	
 	for(var username in users)
 	{
-		var color = rgb2hex(randcolorhue([0,0,255]));
-		console.log(username, color, users[username].length);
+		var color = rgb2hex(randcolor());
 
-		geoLayer.addData( L.polygon(users[username], {color: color }).toGeoJSON() );
+		//TODO avatar http://leafletjs.com/reference.html#imageoverlay
+		
+		var rect = L.rectangle(L.latLngBounds(users[username]), {color: color }).addTo(map);
+		delete users[username];
+		
+		console.log(username, color, L.Util.stamp(rect) );
+
+		//geoLayer.addData( rect.toGeoJSON() );
 	}
 })
 .addTo(map);
