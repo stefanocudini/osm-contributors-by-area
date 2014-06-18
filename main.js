@@ -15,10 +15,11 @@
 */
 $(function() {
 
-var minZoom = 15,
+var minZoom = 14,
 	map = new L.Map('map', {
 		attribution: '<a href="http://leafletjs.com/">Leaflet</a> &bull; <a href="http://osm.org/" target="_blank">OpenStreetMap contributors</a>',
-		layers: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+		//layers: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+		layers: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'),
 		minZoom: minZoom
 	}),
 	//overpassUrl= 'http://overpass.osm.rambler.ru/cgi/interpreter?'
@@ -26,14 +27,16 @@ var minZoom = 15,
 
 map.setView(L.latLng(42.4461,12.4937), minZoom);
 
-var geoLayer = L.geoJson([]).addTo(map);
+var geoLayer = L.layerGroup([]).addTo(map);
 
 var users = {};
 
 var sidebar$ = $('#sidebar'),
 	userlist$ = $('#userlist');
 
+window.map = map;
 window.users = users;
+window.geoLayer = geoLayer;
 
 function avatarByUid(uid) {
 	var avatar = '';
@@ -52,12 +55,56 @@ function avatarByUid(uid) {
 	return avatar;
 }
 
+//https://gist.github.com/bmcbride/4248238
+function toWKT(layer) {
+    var lng, lat, coords = [];
+    if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+        var latlngs = layer.getLatLngs();
+        for (var i = 0; i < latlngs.length; i++) {
+	    	//latlngs[i]
+	    	coords.push(latlngs[i].lng + " " + latlngs[i].lat);
+	        if (i === 0) {
+	        	lng = latlngs[i].lng;
+	        	lat = latlngs[i].lat;
+	        }
+	}
+        if (layer instanceof L.Polygon) {
+            return "POLYGON((" + coords.join(",") + "," + lng + " " + lat + "))";
+        } else if (layer instanceof L.Polyline) {
+            return "LINESTRING(" + coords.join(",") + ")";
+        }
+    } else if (layer instanceof L.Marker) {
+        return "POINT(" + layer.getLatLng().lng + " " + layer.getLatLng().lat + ")";
+    }
+}
+
+function geomIntersect(recta, rectb, color) {
+	var WKTReader = new jsts.io.WKTReader(),
+		geoWriter = new jsts.io.GeoJSONWriter(),
+		wa = toWKT(recta),
+		wb = toWKT(rectb);
+
+	var inter = WKTReader.read(wa).intersection( WKTReader.read(wb) );
+	
+	inter = geoWriter.write(inter);
+	inter = L.GeoJSON.geometryToLayer(inter);
+	
+	inter.setStyle({color: color,
+		opacity:1,
+		fill: false,
+		fillOpacity:0.2
+	});
+
+	return inter;
+}
+
 L.layerJSON({
 	//http://overpass-turbo.eu/s/3Ml
 	//(node();way["highway"~"."]();>;);out meta;
 	//way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;
-	minZoom: 15,
-	url: overpassUrl+'data=[out:json];way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;',
+	//minZoom: 15,
+	//url: overpassUrl+'data=[out:json];way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;',
+	url: overpassUrl+'data=[out:json];node({lat1},{lon1},{lat2},{lon2});out meta;',
 	propertyItems: 'elements',
 	propertyTitle: 'tags.name',
 	propertyLoc: ['lat','lon'],
@@ -71,10 +118,6 @@ L.layerJSON({
 				color: rgb2hex(randcolor()),
 				locs: [ll]
 			};
-			userlist$.append('<div class="useritem" style="background:'+users[data.uid].color+'">'+
-				'<img height="24" width="25" src="'+users[data.uid].avatar+'" /> '+
-				'<a target="_blank" href="http://osm.org/user/'+users[data.uid].username+'">'+users[data.uid].username+'</a>'+
-				'</div>');
 		}
 		else
 			users[data.uid].locs.push(ll);
@@ -87,13 +130,19 @@ L.layerJSON({
 	userlist$.empty();
 })
 .on('dataloaded',function(e) {
+	geoLayer.clearLayers();
+	var mapRect = L.rectangle( map.getBounds().pad(-0.98) );
 	for(var uid in users)
 	{
-		//TODO avatar http://leafletjs.com/reference.html#imageoverlay
-		var rect = L.rectangle(L.latLngBounds(users[uid].locs), {color: users[uid].color }).addTo(map);
-		//geoLayer.addData( rect.toGeoJSON() );
+		var rect = L.rectangle(L.latLngBounds(users[uid].locs));
+		window.inter = geomIntersect(mapRect, rect, users[uid].color);
+		geoLayer.addLayer(window.inter);
+		
+		userlist$.append('<div class="useritem" style="background:'+users[uid].color+'">'+
+			'<img height="24" width="25" src="'+users[uid].avatar+'" /> '+
+			'<a target="_blank" href="http://osm.org/user/'+users[uid].username+'">'+users[uid].username+'</a>'+
+			'</div>');
 	}
-	
 })
 .addTo(map);
 

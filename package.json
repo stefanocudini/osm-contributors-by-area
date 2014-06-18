@@ -26,5 +26,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "jsts": "^0.13.4"
   }
 }

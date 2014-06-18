@@ -7,3 +7,6 @@
 [submodule "leaflet-sidebar"]
 	path = leaflet-sidebar
 	url = https://github.com/Turbo87/leaflet-sidebar.git
+[submodule "Wicket"]
+	path = Wicket
+	url = https://github.com/arthur-e/Wicket.git
