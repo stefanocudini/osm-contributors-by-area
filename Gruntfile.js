@@ -42,6 +42,7 @@ grunt.initConfig({
 				'dist/L.Control.Sidebar.min.js',
 				'leaflet-list-markers/dist/leaflet-list-markers.min.js',
 				'leaflet-layerJSON/dist/leaflet-layerjson.src.js',			
+				'colors.js',
 				'social.js',
 				'dist/main.min.js'			
 			],

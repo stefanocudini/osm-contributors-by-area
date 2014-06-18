@@ -11,33 +11,45 @@ var minZoom = 15,
 
 map.setView(L.latLng(42.4461,12.4937), minZoom);
 
-// var dt = new Date();
-// dt.setMonth(dt.getMonth() - 6);	//FROM n MONTHS AGO
-// var dts = '"'+encodeURI(dt.toISOString())+'"';
+var geoLayer = L.geoJson([]).addTo(map);
 
-//FIXME§:
-// <p>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</p>
-// <p><strong style="color:#FF0000">Error</strong>: line 1: parse error: Invalid parameter for print: "%" </p>
-// <p><strong style="color:#FF0000">Error</strong>: line 1: parse error: Unknown type ";" </p>
-// <p><strong style="color:#FF0000">Error</strong>: line 1: parse error: An empty query is not allowed </p>
+var users = {};
 
+window.users = users;
 
 L.layerJSON({
-	url: overpassUrl+'data=[out:json];node({lat1},{lon1},{lat2},{lon2});out meta;',
+	//http://overpass-turbo.eu/s/3Ml
+	//(node();way["highway"~"."]();>;);out meta;
+	//way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;
+	url: overpassUrl+'data=[out:json];way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;',
 	propertyItems: 'elements',
 	propertyTitle: 'tags.name',
 	propertyLoc: ['lat','lon'],
-	dataToMarker: function(data) {
-		return false;
+	dataToMarker: function(data,ll) {
+		//console.log(data);
+		if(!users[data.user])
+			users[data.user] = [];
+		else
+			users[data.user].push(ll);
+
+		return false;//L.circle(ll, 10);
 	}
 })
-.on('dataloading',function(e) {
-	console.log('dataloading',e);
-	//loader.style.display = 'block';
-})
+// .on('dataloading',function(e) {
+// 	console.log('dataloading',e);
+// 	//loader.style.display = 'block';
+// })
 .on('dataloaded',function(e) {
-	console.log('dataloaded',e);
+	console.log('dataloaded', users);
 	//loader.style.display = 'none';
+	
+	for(var username in users)
+	{
+		var color = rgb2hex(randcolorhue([0,0,255]));
+		console.log(username, color, users[username].length);
+
+		geoLayer.addData( L.polygon(users[username], {color: color }).toGeoJSON() );
+	}
 })
 .addTo(map);
 
