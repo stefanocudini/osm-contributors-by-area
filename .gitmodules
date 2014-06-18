@@ -10,3 +10,6 @@
 [submodule "Wicket"]
 	path = Wicket
 	url = https://github.com/arthur-e/Wicket.git
+[submodule "jsts"]
+	path = jsts
+	url = https://github.com/bjornharrtell/jsts.git
