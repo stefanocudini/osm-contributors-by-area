@@ -103,6 +103,7 @@ L.layerJSON({
 	//(node();way["highway"~"."]();>;);out meta;
 	//way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;
 	//minZoom: 15,
+	caching: false,
 	//url: overpassUrl+'data=[out:json];way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;',
 	url: overpassUrl+'data=[out:json];node({lat1},{lon1},{lat2},{lon2});out meta;',
 	propertyItems: 'elements',
