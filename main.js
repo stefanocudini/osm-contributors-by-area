@@ -17,13 +17,18 @@ $(function() {
 
 var minZoom = 14,
 	map = new L.Map('map', {
-		attribution: '<a href="http://leafletjs.com/">Leaflet</a> &bull; <a href="http://osm.org/" target="_blank">OpenStreetMap contributors</a>',
+		attributionControl: false,
 		//layers: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
 		layers: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'),
 		minZoom: minZoom
 	}),
 	//overpassUrl= 'http://overpass.osm.rambler.ru/cgi/interpreter?'
 	overpassUrl= 'http://overpass-api.de/api/interpreter?';
+
+L.control.attribution({
+	position: 'bottomleft',
+	prefix: 'made with <a href="http://leafletjs.com/">Leaflet</a> &bull; map data &copy; <a href="http://osm.org/" target="_blank">OpenStreetMap contributors</a>',
+}).addTo(map);
 
 map.setView(L.latLng(42.4461,12.4937), minZoom);
 
@@ -33,10 +38,6 @@ var users = {};
 
 var sidebar$ = $('#sidebar'),
 	userlist$ = $('#userlist');
-
-window.map = map;
-window.users = users;
-window.geoLayer = geoLayer;
 
 function avatarByUid(uid) {
 	var avatar = '';
@@ -136,19 +137,41 @@ L.layerJSON({
 	for(var uid in users)
 	{
 		var rect = L.rectangle(L.latLngBounds(users[uid].locs));
-		window.inter = geomIntersect(mapRect, rect, users[uid].color);
-		geoLayer.addLayer(window.inter);
+		
+		rect = geomIntersect(mapRect, rect, users[uid].color);
+		
+		geoLayer.addLayer(rect);
 		
 		userlist$.append('<div class="useritem" style="background:'+users[uid].color+'">'+
 			'<img height="24" width="25" src="'+users[uid].avatar+'" /> '+
 			'<a target="_blank" href="http://osm.org/user/'+users[uid].username+'">'+users[uid].username+'</a>'+
 			'</div>');
+		//TODO send message: 'http://osm.org/message/new/'+users[uid].username
 	}
 })
 .addTo(map);
 
 //CONTROL SIDEBAR
 L.control.sidebar('sidebar',{position:'right'}).addTo(map).show();
+
+// var locationFilter = new L.LocationFilter({
+// 	bounds: map.getBounds().pad(-0.90)
+// })
+// .addTo(map);
+
+// locationFilter.on("change", function (e) {
+// 	console.log(e.bounds);
+//     // Do something when the bounds change.
+//     // Bounds are available in `e.bounds`.
+// });
+
+// locationFilter.on("enabled", function () {
+//     // Do something when enabled.
+// });
+
+// locationFilter.on("disabled", function () {
+//     // Do something when disabled.
+// });
 
 });
 
