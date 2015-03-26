@@ -11,10 +11,7 @@
   "license": "MIT",
   "keywords": [
     "osm",
-    "openstreetmap",
-    "contributors",
-    "users",
-    "area"
+	"maps"
   ],
   "devDependencies": {
     "grunt": "^0.4.5",
