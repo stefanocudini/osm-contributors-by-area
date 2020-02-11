@@ -46,7 +46,7 @@ function avatarByUid(uid) {
 	
 	$.ajax({
 		async: false,
-		url: 'http://api.openstreetmap.org/api/0.6/user/'+uid,
+		url: 'https://api.openstreetmap.org/api/0.6/user/'+uid,
 		dataType: 'xml',
 		success: function(xml) {
 			avatar = $(xml).find('img').attr('href');
