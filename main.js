@@ -1,9 +1,9 @@
 /*
 <osm version="0.6" generator="OpenStreetMap server">
 <user id="130691" display_name="StefanoCudini" account_created="2009-06-01T18:03:32Z">
-<description>[labs.easyblog.it](http://labs.easyblog.it/)</description>
+<description>[opengeo.tech](https://opengeo.tech/)</description>
 <contributor-terms agreed="true"/>
-<img href="http://api.openstreetmap.org/attachments/users/images/000/130/691/original/39c24d8cd7d1cb787df7f31ffd98c2c9.jpg"/>
+<img href="https://api.openstreetmap.org/attachments/users/images/000/130/691/original/39c24d8cd7d1cb787df7f31ffd98c2c9.jpg"/>
 <roles></roles>
 <changesets count="1804"/>
 <traces count="125"/>
@@ -18,16 +18,16 @@ $(function() {
 var minZoom = 14,
 	map = new L.Map('map', {
 		attributionControl: false,
-		//layers: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
-		layers: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'),
+		//layers: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+		layers: L.tileLayer('https://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'),
 		minZoom: minZoom
 	}),
-	//overpassUrl= 'http://overpass.osm.rambler.ru/cgi/interpreter?'
-	overpassUrl= 'http://overpass-api.de/api/interpreter?';
+	//overpassUrl= 'https://overpass.osm.rambler.ru/cgi/interpreter?'
+	overpassUrl= 'https://overpass-api.de/api/interpreter?';
 
 L.control.attribution({
 	position: 'bottomleft',
-	prefix: 'made with <a href="http://leafletjs.com/">Leaflet</a> &bull; map data &copy; <a href="http://osm.org/" target="_blank">OpenStreetMap contributors</a>',
+	prefix: 'made with <a href="https://leafletjs.com/">Leaflet</a> &bull; map data &copy; <a href="https://osm.org/" target="_blank">OpenStreetMap contributors</a>',
 }).addTo(map);
 
 map.setView(L.latLng(42.4461,12.4937), minZoom);
@@ -100,7 +100,7 @@ function geomIntersect(recta, rectb, color) {
 }
 
 L.layerJSON({
-	//http://overpass-turbo.eu/s/3Ml
+	//https://overpass-turbo.eu/s/3Ml
 	//(node();way["highway"~"."]();>;);out meta;
 	//way["highway"~"."]({lat1},{lon1},{lat2},{lon2});>;out meta;
 	//minZoom: 15,
@@ -144,9 +144,9 @@ L.layerJSON({
 		
 		userlist$.append('<div class="useritem" style="background:'+users[uid].color+'">'+
 			'<img height="24" width="25" src="'+users[uid].avatar+'" /> '+
-			'<a target="_blank" href="http://osm.org/user/'+users[uid].username+'">'+users[uid].username+'</a>'+
+			'<a target="_blank" href="https://osm.org/user/'+users[uid].username+'">'+users[uid].username+'</a>'+
 			'</div>');
-		//TODO send message: 'http://osm.org/message/new/'+users[uid].username
+		//TODO send message: 'https://osm.org/message/new/'+users[uid].username
 	}
 })
 .addTo(map);

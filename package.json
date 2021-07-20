@@ -6,8 +6,8 @@
     "type": "git",
     "url": "git@github.com:stefanocudini/osm-contributors-by-area.git"
   },
-  "homepage": "http://labs.easyblog.it/maps/osm-contributors-by-area/",
-  "author": "Stefano Cudini <stefano.cudini@gmail.com> (http://labs.easyblog.it/)",
+  "homepage": "https://opengeo.tech/maps/osm-contributors-by-area/",
+  "author": "Stefano Cudini <stefano.cudini@gmail.com> (https://opengeo.tech/)",
   "license": "MIT",
   "keywords": [
     "osm",

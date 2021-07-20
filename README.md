@@ -3,12 +3,12 @@ OpenStreetMap Contributors by Area
 
 List of contributors who have participated in a given OSM area.
 
-Ispired by: [OpenStreetMap Contributors](http://resultmaps.neis-one.org/oooc) *Copyright © [Pascal Neis](http://neis-one.org)*
+Ispired by: [OpenStreetMap Contributors](https://resultmaps.neis-one.org/oooc) *Copyright © [Pascal Neis](https://neis-one.org)*
 
-Copyright 2014 [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
+Copyright 2014 [Stefano Cudini](https://opengeo.tech/stefano-cudini/)
 
 **Demo:**  
-[labs.easyblog.it/maps/osm-contributors-by-area](http://labs.easyblog.it/maps/osm-contributors-by-area/)
+[opengeo.tech/maps/osm-contributors-by-area](https://opengeo.tech/maps/osm-contributors-by-area/)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/osm-contributors-by-area/master/images/osm-contributors-by-area.png)
 
