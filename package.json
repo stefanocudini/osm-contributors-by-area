@@ -1,6 +1,6 @@
 {
   "name": "osm-contributors-by-area",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "List of contributors who have participated in a given OSM area.",
   "repository": {
     "type": "git",
@@ -11,9 +11,9 @@
   "license": "MIT",
   "keywords": [
     "osm",
-	"overpass",
-	"maps",
-	"api"
+    "overpass",
+    "maps",
+    "api"
   ],
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -26,6 +26,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
